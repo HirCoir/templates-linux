@@ -1,0 +1,34 @@
+server {
+
+        listen 80; # Specify the listening port
+
+        listen [::]:80; # The same thing for IPv6
+
+        root /var/www/dominio.com; # The path to the website files
+
+        index index.php index.html index.htm; # Files to display if only the domain name is specified in the address
+
+        server_name dominio.com www.dominio.com; # Domain name of this site
+
+        location / {
+
+                try_files $uri $uri/ =404 /index.php?$args;
+
+        }
+  # pass PHP scripts on Nginx to FastCGI (PHP-FPM) server
+    location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+
+                    # Nginx php-fpm sock config:
+                                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+                                    # Nginx php-cgi config :
+                                                # Nginx PHP fastcgi_pass 127.0.0.1:9000;
+                                                  }
+
+      # deny access to Apache .htaccess on Nginx with PHP, 
+        # if Apache and Nginx document roots concur
+          location ~ /\.ht {
+                      deny all;
+                        }
+ # 
+}

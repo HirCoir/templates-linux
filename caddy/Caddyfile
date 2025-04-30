@@ -1,4 +1,4 @@
-novasolutions.duckdns.org {
+domain {
     root * /path/to/www/domain.tld
     php_fastcgi unix//run/php/php-fpm.sock
     file_server
